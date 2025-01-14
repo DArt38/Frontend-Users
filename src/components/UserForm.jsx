@@ -12,7 +12,22 @@ const UserForm = ({ selectedUser, onUserSaved }) => {
 
   useEffect(() => {
     if (selectedUser) {
-      setForm(selectedUser);
+      setForm({
+        name: selectedUser.name || "",
+        last_name: selectedUser.last_name || "",
+        mail: selectedUser.mail || "",
+        phone: selectedUser.phone || "",
+        password: "", // No cargamos la contraseña para la edición
+      });
+    } else {
+      // Si no hay usuario seleccionado, restablecer el formulario
+      setForm({
+        name: "",
+        last_name: "",
+        mail: "",
+        phone: "",
+        password: "",
+      });
     }
   }, [selectedUser]);
 
@@ -48,7 +63,7 @@ const UserForm = ({ selectedUser, onUserSaved }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="space-y-4">
       <input
         type="text"
         name="name"
@@ -56,6 +71,7 @@ const UserForm = ({ selectedUser, onUserSaved }) => {
         value={form.name}
         onChange={handleChange}
         required
+        className="w-full px-4 py-2 border border-gray-300 rounded"
       />
       <input
         type="text"
@@ -64,6 +80,7 @@ const UserForm = ({ selectedUser, onUserSaved }) => {
         value={form.last_name}
         onChange={handleChange}
         required
+        className="w-full px-4 py-2 border border-gray-300 rounded"
       />
       <input
         type="email"
@@ -72,6 +89,7 @@ const UserForm = ({ selectedUser, onUserSaved }) => {
         value={form.mail}
         onChange={handleChange}
         required
+        className="w-full px-4 py-2 border border-gray-300 rounded"
       />
       <input
         type="text"
@@ -80,6 +98,7 @@ const UserForm = ({ selectedUser, onUserSaved }) => {
         value={form.phone}
         onChange={handleChange}
         required
+        className="w-full px-4 py-2 border border-gray-300 rounded"
       />
       <input
         type="password"
@@ -88,8 +107,12 @@ const UserForm = ({ selectedUser, onUserSaved }) => {
         value={form.password}
         onChange={handleChange}
         required
+        className="w-full px-4 py-2 border border-gray-300 rounded"
       />
-      <button type="submit">
+      <button
+        type="submit"
+        className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
         {selectedUser ? "Actualizar Usuario" : "Agregar Usuario"}
       </button>
     </form>
