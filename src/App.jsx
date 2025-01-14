@@ -9,7 +9,7 @@ const App = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/users");
+      const response = await axios.get("https://users-back-production.up.railway.app/api/users");
       setUsers(response.data);
     } catch (error) {
       console.error(error);

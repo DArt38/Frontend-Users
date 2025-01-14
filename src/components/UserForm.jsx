@@ -26,11 +26,11 @@ const UserForm = ({ selectedUser, onUserSaved }) => {
     try {
       if (selectedUser) {
         // Actualizar usuario
-        await axios.put(`http://localhost:8000/api/users/${selectedUser.id}`, form);
+        await axios.put(`https://users-back-production.up.railway.app/api/users/${selectedUser.id}`, form);
         alert("Usuario actualizado correctamente.");
       } else {
         // Crear usuario
-        await axios.post("http://localhost:8000/api/users", form);
+        await axios.post("https://users-back-production.up.railway.app/api/users", form);
         alert("Usuario creado correctamente.");
       }
       onUserSaved();

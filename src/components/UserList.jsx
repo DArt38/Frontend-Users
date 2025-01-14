@@ -3,7 +3,7 @@ import axios from "axios";
 const UserList = ({ users, onEdit, onDelete }) => {
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/users/${id}`);
+      await axios.delete(`https://users-back-production.up.railway.app/api/users/${id}`);
       alert("Usuario eliminado correctamente.");
       onDelete();
     } catch (error) {
