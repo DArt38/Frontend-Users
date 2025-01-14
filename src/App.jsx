@@ -7,24 +7,25 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [error, setError] = useState(null);
 
   const fetchUsers = async () => {
     try {
       setLoading(true);
       const response = await axios.get("https://users-back-production.up.railway.app/api/users");
-      setUsers(response.data);
+      setUsers(Array.isArray(response.data) ? response.data : []);
+      setError(null);
     } catch (error) {
       console.error("Error al cargar usuarios:", error);
+      setError("Hubo un error al cargar los usuarios.");
     } finally {
       setLoading(false);
     }
   };
 
-  if(!setUsers){
-  useEffect(() => {
+ useEffect(() => {
     fetchUsers();
-  }, []);
-}
+ }, []);
 
   const handleUserSaved = () => {
     fetchUsers();
@@ -54,8 +55,10 @@ const App = () => {
       )}
         </div>
       <div className="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-lg">
-        {loading ? (
-          <p className="text-center text-gray-500">...</p>
+      {loading ? (
+          <p className="text-center text-gray-500">Cargando...</p>
+        ) : error ? (
+          <p className="text-center text-red-500">{error}</p> // Mostrar mensaje de error
         ) : users.length === 0 ? (
           <p className="text-center text-gray-500">No hay usuarios disponibles.</p>
         ) : (
